@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+ <title>Test</title>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+ <link rel="stylesheet" href="index.css">
+</head>
+<body>
+ <div id="root"></div>
+ <script type="text/babel">
+   // ES6 / React / JSX code from here
+   // functional component
+   //function Clock(props) {
+    //   return (
+    //       <div>
+    //           <h1>Hello, world!</h1>
+    //           <h2>It is {props.date.toLocaleTimeString()}.</h2>
+    //       </div>
+    //   );
+    //}
+
+
+   // functional component to class component, add extends React.Component, render function, add this.props, move body to render()
+   // only class component have LocalState and lifeCycle hook!!!
+   // use constructor to add LocalState, to change state, only use setState method!!!
+   // add timer when first render to DOM tree: mounting    ,     remove the react element also remove timer: unmounting!
+   // mounting: componentDidmount()   //  unmount : componentWillUnmount()
+
+   class Clock extends React.Component{
+       constructor(props){
+           super(props);
+           this.state={date: new Date()};
+       }
+       componentDidMount(){
+           this.timerId = setInterval(
+               () => this.tick(),
+               1000
+           );
+       }
+
+       componentWillUnmount(){
+           clearInterval(this.timerId);
+       }
+       tick(){
+           this.setState(
+               {date: new Date()}
+           );
+       }
+       render(){
+           return(
+               <div>
+                   <h1>Hello, world!</h1>
+                   <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+               </div>
+           );
+       }
+   }
+   ReactDOM.render(
+       <Clock />,
+       document.getElementById('root')
+   );
+   // now how to update the state?
+   // use the setState method only
+
+ </script>
+</body>
+</html>
