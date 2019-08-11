@@ -1,0 +1,26 @@
+union find
+//找根节点+路径压缩
+int unionsearch(int root){
+	int son, tmp;
+	son = root;
+	while (root != pre[root]){
+		root = pre[root];
+	}
+	while (son != root){
+		tmp = pre[son];
+		pre[son] = root;
+		son = tmp;
+	}
+	return root; // 掌门驾到
+}
+// join 函数
+void join(int root1, int root2){
+	int x;
+	int y;
+	x = unionsearch(root1);
+	y = unionsearch(root2);
+	// 打一架，谁赢就是老大。
+	if (x != y){
+		pre[x] = y;
+	}
+}
